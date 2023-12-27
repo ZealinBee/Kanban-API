@@ -1,0 +1,17 @@
+D:\Projects\kanban-api\KanbanAPI.Controller\bin\Debug\net8.0\KanbanAPI.Controller.deps.json
+D:\Projects\kanban-api\KanbanAPI.Controller\bin\Debug\net8.0\KanbanAPI.Controller.dll
+D:\Projects\kanban-api\KanbanAPI.Controller\bin\Debug\net8.0\KanbanAPI.Controller.pdb
+D:\Projects\kanban-api\KanbanAPI.Controller\bin\Debug\net8.0\KanbanAPI.Business.dll
+D:\Projects\kanban-api\KanbanAPI.Controller\bin\Debug\net8.0\KanbanAPI.Domain.dll
+D:\Projects\kanban-api\KanbanAPI.Controller\bin\Debug\net8.0\KanbanAPI.Business.pdb
+D:\Projects\kanban-api\KanbanAPI.Controller\bin\Debug\net8.0\KanbanAPI.Domain.pdb
+D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\KanbanAPI.Controller.csproj.AssemblyReference.cache
+D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\KanbanAPI.Controller.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\KanbanAPI.Controller.AssemblyInfoInputs.cache
+D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\KanbanAPI.Controller.AssemblyInfo.cs
+D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\KanbanAPI.Controller.csproj.CoreCompileInputs.cache
+D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\KanbanAPI.Controller.csproj.CopyComplete
+D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\KanbanAPI.Controller.dll
+D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\refint\KanbanAPI.Controller.dll
+D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\KanbanAPI.Controller.pdb
+D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\ref\KanbanAPI.Controller.dll

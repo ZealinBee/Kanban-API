@@ -1,0 +1,113 @@
+{
+  "version": 3,
+  "targets": {
+    "net8.0": {
+      "KanbanAPI.Business/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "KanbanAPI.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/KanbanAPI.Business.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/KanbanAPI.Business.dll": {}
+        }
+      },
+      "KanbanAPI.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/KanbanAPI.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/KanbanAPI.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "KanbanAPI.Business/1.0.0": {
+      "type": "project",
+      "path": "../KanbanAPI.Business/KanbanAPI.Business.csproj",
+      "msbuildProject": "../KanbanAPI.Business/KanbanAPI.Business.csproj"
+    },
+    "KanbanAPI.Domain/1.0.0": {
+      "type": "project",
+      "path": "../KanbanAPI.Domain/KanbanAPI.Domain.csproj",
+      "msbuildProject": "../KanbanAPI.Domain/KanbanAPI.Domain.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net8.0": [
+      "KanbanAPI.Business >= 1.0.0",
+      "KanbanAPI.Domain >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\thenu\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\Projects\\kanban-api\\KanbanAPI.Controller\\KanbanAPI.Controller.csproj",
+      "projectName": "KanbanAPI.Controller",
+      "projectPath": "D:\\Projects\\kanban-api\\KanbanAPI.Controller\\KanbanAPI.Controller.csproj",
+      "packagesPath": "C:\\Users\\thenu\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\kanban-api\\KanbanAPI.Controller\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\thenu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net8.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "projectReferences": {
+            "D:\\Projects\\kanban-api\\KanbanAPI.Business\\KanbanAPI.Business.csproj": {
+              "projectPath": "D:\\Projects\\kanban-api\\KanbanAPI.Business\\KanbanAPI.Business.csproj"
+            },
+            "D:\\Projects\\kanban-api\\KanbanAPI.Domain\\KanbanAPI.Domain.csproj": {
+              "projectPath": "D:\\Projects\\kanban-api\\KanbanAPI.Domain\\KanbanAPI.Domain.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net8.0": {
+        "targetAlias": "net8.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
