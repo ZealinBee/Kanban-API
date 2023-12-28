@@ -1,10 +1,11 @@
-D:\Projects\kanban-api\KanbanAPI.Domain\bin\Debug\net8.0\KanbanAPI.Domain.deps.json
-D:\Projects\kanban-api\KanbanAPI.Domain\bin\Debug\net8.0\KanbanAPI.Domain.dll
-D:\Projects\kanban-api\KanbanAPI.Domain\bin\Debug\net8.0\KanbanAPI.Domain.pdb
 D:\Projects\kanban-api\KanbanAPI.Domain\obj\Debug\net8.0\KanbanAPI.Domain.GeneratedMSBuildEditorConfig.editorconfig
 D:\Projects\kanban-api\KanbanAPI.Domain\obj\Debug\net8.0\KanbanAPI.Domain.AssemblyInfoInputs.cache
 D:\Projects\kanban-api\KanbanAPI.Domain\obj\Debug\net8.0\KanbanAPI.Domain.AssemblyInfo.cs
 D:\Projects\kanban-api\KanbanAPI.Domain\obj\Debug\net8.0\KanbanAPI.Domain.csproj.CoreCompileInputs.cache
+D:\Projects\kanban-api\KanbanAPI.Domain\obj\Debug\net8.0\KanbanAPI.Domain.sourcelink.json
+D:\Projects\kanban-api\KanbanAPI.Domain\bin\Debug\net8.0\KanbanAPI.Domain.deps.json
+D:\Projects\kanban-api\KanbanAPI.Domain\bin\Debug\net8.0\KanbanAPI.Domain.dll
+D:\Projects\kanban-api\KanbanAPI.Domain\bin\Debug\net8.0\KanbanAPI.Domain.pdb
 D:\Projects\kanban-api\KanbanAPI.Domain\obj\Debug\net8.0\KanbanAPI.Domain.dll
 D:\Projects\kanban-api\KanbanAPI.Domain\obj\Debug\net8.0\refint\KanbanAPI.Domain.dll
 D:\Projects\kanban-api\KanbanAPI.Domain\obj\Debug\net8.0\KanbanAPI.Domain.pdb

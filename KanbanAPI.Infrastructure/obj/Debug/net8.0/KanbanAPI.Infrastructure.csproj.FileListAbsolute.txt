@@ -37,3 +37,4 @@ D:\Projects\kanban-api\KanbanAPI.Infrastructure\obj\Debug\net8.0\refint\KanbanAP
 D:\Projects\kanban-api\KanbanAPI.Infrastructure\obj\Debug\net8.0\KanbanAPI.Infrastructure.pdb
 D:\Projects\kanban-api\KanbanAPI.Infrastructure\obj\Debug\net8.0\KanbanAPI.Infrastructure.genruntimeconfig.cache
 D:\Projects\kanban-api\KanbanAPI.Infrastructure\obj\Debug\net8.0\ref\KanbanAPI.Infrastructure.dll
+D:\Projects\kanban-api\KanbanAPI.Infrastructure\obj\Debug\net8.0\KanbanAPI.Infrastructure.sourcelink.json

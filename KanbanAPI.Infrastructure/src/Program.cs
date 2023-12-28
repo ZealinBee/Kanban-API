@@ -1,11 +1,16 @@
 using KanbanAPI.Business;
 using KanbanAPI.Controller;
 using KanbanAPI.Domain;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -22,7 +27,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.useHttpsRedirection();
-app.useCors("AllowOrigin");
+app.UseHttpsRedirection();
+app.UseCors("AllowOrigin");
 app.MapControllers();
 app.Run();

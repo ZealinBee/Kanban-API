@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "nUmKTYsnUZhyBIK8Z+y3iM4lcYjXRCoZWi5XnOw+ei2dZdL/CKYsZE/dhTzDSunJzr0zMFoaXitdUYF8oBO60w==",
+  "dgSpecHash": "b4IU2D8OfROtsKP/zt2JGUgsFrWC37k3ChkTDf3KybbliU1yklZqkdHvz3ktMR0aU0GFLwg6bU+j8x5l8WcPHQ==",
   "success": true,
   "projectFilePath": "D:\\Projects\\kanban-api\\KanbanAPI.Business\\KanbanAPI.Business.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\thenu\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\thenu\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512"
+  ],
   "logs": []
 }

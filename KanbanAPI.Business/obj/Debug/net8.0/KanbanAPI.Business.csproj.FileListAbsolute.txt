@@ -13,3 +13,4 @@ D:\Projects\kanban-api\KanbanAPI.Business\obj\Debug\net8.0\KanbanAPI.Business.dl
 D:\Projects\kanban-api\KanbanAPI.Business\obj\Debug\net8.0\refint\KanbanAPI.Business.dll
 D:\Projects\kanban-api\KanbanAPI.Business\obj\Debug\net8.0\KanbanAPI.Business.pdb
 D:\Projects\kanban-api\KanbanAPI.Business\obj\Debug\net8.0\ref\KanbanAPI.Business.dll
+D:\Projects\kanban-api\KanbanAPI.Business\obj\Debug\net8.0\KanbanAPI.Business.sourcelink.json

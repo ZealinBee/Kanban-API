@@ -15,3 +15,4 @@ D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\KanbanAPI.Controlle
 D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\refint\KanbanAPI.Controller.dll
 D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\KanbanAPI.Controller.pdb
 D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\ref\KanbanAPI.Controller.dll
+D:\Projects\kanban-api\KanbanAPI.Controller\obj\Debug\net8.0\KanbanAPI.Controller.sourcelink.json
