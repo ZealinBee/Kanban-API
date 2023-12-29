@@ -1,4 +1,5 @@
 using KanbanAPI.Domain;
+using AutoMapper;
 
 namespace KanbanAPI.Business;
 

@@ -1,12 +1,16 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+
 using KanbanAPI.Business;
 using KanbanAPI.Domain;
+
 
 namespace KanbanAPI.Controller;
 
 [ApiController]
 [Route("api/[controller]s")]
 
-public class BaseController : ControllerBase
+public class BaseController<T, TCreateDto, TGetDto, TUpdateDto> : ControllerBase
 {
     protected readonly IBaseService<TCreateDto, TGetDto, TUpdateDto> _service;
     public BaseController(IBaseService<TCreateDto, TGetDto, TUpdateDto> service)
@@ -20,7 +24,7 @@ public class BaseController : ControllerBase
         try
         {
             var newItem = await _service.CreateOneAsync(dto);
-            return CreatedAtAction(newItem);
+            return CreatedAtAction(nameof(GetOneAsync), newItem);
         }
         catch (Exception e)
         {

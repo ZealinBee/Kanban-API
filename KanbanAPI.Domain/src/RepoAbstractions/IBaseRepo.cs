@@ -1,9 +1,9 @@
 namespace KanbanAPI.Domain;
-public interface IBaseRepo<T> where T : class
+public interface IBaseRepo<T>
 {
     Task<IEnumerable<T>> GetAllAsync();
     Task<T> GetOneAsync(Guid id);
     Task<T> CreateOneAsync(T entity);
     Task<T> UpdateOneAsync(T entity);
-    Task<bool> DeleteAsync(Guid id);
+    Task<bool> DeleteOneAsync(Guid id);
 }

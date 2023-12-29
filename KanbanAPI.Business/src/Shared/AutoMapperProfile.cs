@@ -1,4 +1,5 @@
 using KanbanAPI.Domain;
+using AutoMapper;
 
 namespace KanbanAPI.Business;
 
@@ -12,7 +13,5 @@ public class AutoMapperProfile : Profile
         CreateMap<User, CreateUserDto>();
         CreateMap<UpdateUserDto, User>();
         CreateMap<User, UpdateUserDto>();
-
-
     }
 }

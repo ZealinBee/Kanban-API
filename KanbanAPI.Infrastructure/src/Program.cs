@@ -1,16 +1,30 @@
+using Microsoft.OpenApi.Models;
+using Npgsql;
+using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+using Microsoft.Extensions.DependencyInjection;
+
 using KanbanAPI.Business;
 using KanbanAPI.Controller;
 using KanbanAPI.Domain;
-using Microsoft.OpenApi.Models;
+using KanbanAPI.Infrastructure;
+
 
 var builder = WebApplication.CreateBuilder(args);
-var configuration = builder.Configuration;
 
-builder.Services.AddControllers();
+builder.Services.AddDbContext<DatabaseContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+
+builder.Services.AddScoped<IUserRepo, UserRepo>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+
+builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

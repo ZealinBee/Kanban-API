@@ -1,4 +1,5 @@
 using KanbanAPI.Domain;
+using AutoMapper;
 
 namespace KanbanAPI.Business;
 
@@ -24,7 +25,7 @@ public class BaseService<T, TCreateDto, TGetDto, TUpdateDto> : IBaseService<TCre
                 throw new ArgumentNullException($"{property.Name} is null");
         }
         var newItem = _mapper.Map<T>(dto);
-        await _repo.CreateOneAsync(newItem);
+        return _mapper.Map<TGetDto>(await _repo.CreateOneAsync(newItem));
     }
 
     public virtual async Task<TGetDto> GetOneAsync(Guid id)
@@ -58,7 +59,7 @@ public class BaseService<T, TCreateDto, TGetDto, TUpdateDto> : IBaseService<TCre
         var item = await _repo.GetOneAsync(id);
         if (item == null)
             throw new ArgumentNullException(nameof(item));
-        return await _repo.DeleteAsync(id);
+        return await _repo.DeleteOneAsync(id);
     }
 
 }

@@ -1,5 +1,3 @@
-D:\Projects\kanban-api\KanbanAPI.Infrastructure\bin\Debug\net8.0\appsettings.Development.json
-D:\Projects\kanban-api\KanbanAPI.Infrastructure\bin\Debug\net8.0\appsettings.json
 D:\Projects\kanban-api\KanbanAPI.Infrastructure\bin\Debug\net8.0\KanbanAPI.Infrastructure.exe
 D:\Projects\kanban-api\KanbanAPI.Infrastructure\bin\Debug\net8.0\KanbanAPI.Infrastructure.deps.json
 D:\Projects\kanban-api\KanbanAPI.Infrastructure\bin\Debug\net8.0\KanbanAPI.Infrastructure.runtimeconfig.json
@@ -38,3 +36,10 @@ D:\Projects\kanban-api\KanbanAPI.Infrastructure\obj\Debug\net8.0\KanbanAPI.Infra
 D:\Projects\kanban-api\KanbanAPI.Infrastructure\obj\Debug\net8.0\KanbanAPI.Infrastructure.genruntimeconfig.cache
 D:\Projects\kanban-api\KanbanAPI.Infrastructure\obj\Debug\net8.0\ref\KanbanAPI.Infrastructure.dll
 D:\Projects\kanban-api\KanbanAPI.Infrastructure\obj\Debug\net8.0\KanbanAPI.Infrastructure.sourcelink.json
+D:\Projects\kanban-api\KanbanAPI.Infrastructure\bin\Debug\net8.0\AutoMapper.dll
+D:\Projects\kanban-api\KanbanAPI.Infrastructure\bin\Debug\net8.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Projects\kanban-api\KanbanAPI.Infrastructure\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\Projects\kanban-api\KanbanAPI.Infrastructure\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Projects\kanban-api\KanbanAPI.Infrastructure\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Projects\kanban-api\KanbanAPI.Infrastructure\bin\Debug\net8.0\Npgsql.dll
+D:\Projects\kanban-api\KanbanAPI.Infrastructure\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
