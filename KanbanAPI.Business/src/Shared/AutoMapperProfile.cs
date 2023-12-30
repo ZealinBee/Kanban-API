@@ -13,5 +13,11 @@ public class AutoMapperProfile : Profile
         CreateMap<User, CreateUserDto>();
         CreateMap<UpdateUserDto, User>();
         CreateMap<User, UpdateUserDto>();
+        CreateMap<Board, CreateBoardDto>();
+        CreateMap<CreateBoardDto, Board>();
+        CreateMap<Board, GetBoardDto>();
+        CreateMap<GetBoardDto, Board>();
+        CreateMap<Board, UpdateBoardDto>();
+        CreateMap<UpdateBoardDto, Board>();
     }
 }
