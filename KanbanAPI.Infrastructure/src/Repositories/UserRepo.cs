@@ -7,6 +7,7 @@ namespace KanbanAPI.Infrastructure;
 
 public class UserRepo : BaseRepo<User>, IUserRepo
 {
+    private readonly DatabaseContext _dbContext;
     public UserRepo(DatabaseContext dbContext) : base(dbContext)
     {
     }
@@ -20,5 +21,13 @@ public class UserRepo : BaseRepo<User>, IUserRepo
     {
         return await _dbSet.FirstOrDefaultAsync(u => u.Username == username);
     }
+
+    public async Task<User> GetOneWithBoardsAsync(Guid id)
+    {
+        return await _dbSet
+                               .Include(u => u.Boards)
+                               .FirstOrDefaultAsync(u => u.Id == id);
+    }
+
 
 }

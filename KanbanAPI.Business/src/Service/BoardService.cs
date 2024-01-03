@@ -32,17 +32,22 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
 
     public async Task<bool> RemoveMember(Guid boardId, MemberDto dto)
     {
-        var board = await _boardRepo.GetOneAsync(boardId);
+        var board = await _boardRepo.GetOneWithUsersAsync(boardId);
         if (board == null)
             throw new KeyNotFoundException("Board not found");
-        var user = await _userRepo.GetOneAsync(dto.UserId);
+
+        var user = await _userRepo.GetOneWithBoardsAsync(dto.UserId);
         if (user == null)
             throw new KeyNotFoundException("User not found");
+
         board.Users.Remove(user);
         user.Boards.Remove(board);
+
         await _boardRepo.UpdateOneAsync(board);
         await _userRepo.UpdateOneAsync(user);
         return true;
     }
+
+
 
 }
