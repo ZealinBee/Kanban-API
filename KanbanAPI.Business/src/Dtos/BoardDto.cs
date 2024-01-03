@@ -15,3 +15,9 @@ public class UpdateBoardDto
 {
     public string Name { get; set; } = String.Empty;
 }
+
+
+public class MemberDto
+{
+    public Guid UserId { get; set; }
+}

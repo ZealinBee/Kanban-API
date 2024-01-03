@@ -3,6 +3,7 @@ using System;
 using KanbanAPI.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace KanbanAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231230131840_userWithoutSalt")]
+    partial class userWithoutSalt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace KanbanAPI.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("BoardUser", b =>
-                {
-                    b.Property<Guid>("BoardsId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UsersId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("BoardsId", "UsersId");
-
-                    b.HasIndex("UsersId");
-
-                    b.ToTable("BoardUser");
-                });
 
             modelBuilder.Entity("KanbanAPI.Domain.Board", b =>
                 {
@@ -49,7 +37,7 @@ namespace KanbanAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Board");
+                    b.ToTable("Boards");
                 });
 
             modelBuilder.Entity("KanbanAPI.Domain.User", b =>
@@ -72,22 +60,51 @@ namespace KanbanAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("BoardUser", b =>
+            modelBuilder.Entity("KanbanAPI.Domain.UserBoard", b =>
                 {
-                    b.HasOne("KanbanAPI.Domain.Board", null)
-                        .WithMany()
-                        .HasForeignKey("BoardsId")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BoardId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("UserId", "BoardId");
+
+                    b.HasIndex("BoardId");
+
+                    b.ToTable("UserBoards");
+                });
+
+            modelBuilder.Entity("KanbanAPI.Domain.UserBoard", b =>
+                {
+                    b.HasOne("KanbanAPI.Domain.Board", "Board")
+                        .WithMany("UserBoards")
+                        .HasForeignKey("BoardId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("KanbanAPI.Domain.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersId")
+                    b.HasOne("KanbanAPI.Domain.User", "User")
+                        .WithMany("UserBoards")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Board");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("KanbanAPI.Domain.Board", b =>
+                {
+                    b.Navigation("UserBoards");
+                });
+
+            modelBuilder.Entity("KanbanAPI.Domain.User", b =>
+                {
+                    b.Navigation("UserBoards");
                 });
 #pragma warning restore 612, 618
         }

@@ -25,7 +25,8 @@ public class BaseRepo<T> : IBaseRepo<T> where T : class
 
     public virtual async Task<T> GetOneAsync(Guid id)
     {
-        return await _dbSet.FindAsync(id);
+        var entity = await _dbSet.FindAsync(id);
+        return entity;
     }
 
     public virtual async Task<IEnumerable<T>> GetAllAsync()
