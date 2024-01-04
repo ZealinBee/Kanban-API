@@ -34,6 +34,7 @@ public class BaseController<T, TCreateDto, TGetDto, TUpdateDto> : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpGet("{id:Guid}")]
     [ProducesResponseType(statusCode: 200)]
     [ProducesResponseType(statusCode: 400)]
@@ -51,6 +52,7 @@ public class BaseController<T, TCreateDto, TGetDto, TUpdateDto> : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpGet]
     [ProducesResponseType(statusCode: 200)]
     [ProducesResponseType(statusCode: 400)]
@@ -67,6 +69,7 @@ public class BaseController<T, TCreateDto, TGetDto, TUpdateDto> : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpPut("{id:Guid}")]
     [ProducesResponseType(statusCode: 200)]
     [ProducesResponseType(statusCode: 400)]
@@ -89,6 +92,7 @@ public class BaseController<T, TCreateDto, TGetDto, TUpdateDto> : ControllerBase
         }
     }
 
+    [Authorize]
     [HttpDelete("{id:Guid}")]
     [ProducesResponseType(statusCode: 200)]
     [ProducesResponseType(statusCode: 400)]

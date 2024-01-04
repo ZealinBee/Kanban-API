@@ -18,9 +18,9 @@ public class PasswordService
         hashedPassword = Encoding.UTF8.GetString(hmac.ComputeHash(Encoding.UTF8.GetBytes(password)));
     }
 
-    public static bool VerifyPasswordHash(string originalPassword, string hashedPassword, byte[] passwordSalt)
+    public static bool VerifyPasswordHash(string originalPassword, string hashedPassword, byte[] salt)
     {
-        var hmac = new HMACSHA512(passwordSalt);
+        var hmac = new HMACSHA256(salt);
         var hashedOriginal = Encoding.UTF8.GetString(hmac.ComputeHash(Encoding.UTF8.GetBytes(originalPassword)));
         return hashedOriginal == hashedPassword;
     }

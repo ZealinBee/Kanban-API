@@ -9,7 +9,7 @@ using KanbanAPI.Domain;
 
 namespace KanbanAPI.Business;
 
-public class AuthService
+public class AuthService : IAuthService
 {
     private readonly IUserRepo _userRepo;
     private readonly IConfiguration _configuration;
@@ -39,13 +39,17 @@ public class AuthService
             new Claim(ClaimTypes.Email, user.Email),
         };
         var secret = _configuration["Jwt:Key"];
+        var issuer = _configuration["Jwt:Issuer"];
+        var audience = _configuration["Jwt:Audience"];
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
         var creds = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.Now.AddDays(1),
-            SigningCredentials = creds
+            SigningCredentials = creds,
+            Issuer = issuer,
+            Audience = audience,
         };
         var tokenHandler = new JwtSecurityTokenHandler();
         var token = tokenHandler.CreateToken(tokenDescriptor);
