@@ -19,5 +19,12 @@ public class AutoMapperProfile : Profile
         CreateMap<GetBoardDto, Board>();
         CreateMap<Board, UpdateBoardDto>();
         CreateMap<UpdateBoardDto, Board>();
+        CreateMap<Item, CreateItemDto>();
+        CreateMap<CreateItemDto, Item>();
+        CreateMap<Item, GetItemDto>();
+        CreateMap<GetItemDto, Item>();
+        CreateMap<Item, UpdateItemDto>();
+        CreateMap<UpdateItemDto, Item>();
+
     }
 }

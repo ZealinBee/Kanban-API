@@ -21,10 +21,12 @@ builder.Services.AddControllers();
 
 builder.Services.AddScoped<IUserRepo, UserRepo>();
 builder.Services.AddScoped<IBoardRepo, BoardRepo>();
+builder.Services.AddScoped<IItemRepo, ItemRepo>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBoardService, BoardService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IItemService, ItemService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 

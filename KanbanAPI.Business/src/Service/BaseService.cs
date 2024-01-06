@@ -28,12 +28,17 @@ public class BaseService<T, TCreateDto, TGetDto, TUpdateDto> : IBaseService<TCre
         return _mapper.Map<TGetDto>(await _repo.CreateOneAsync(newItem));
     }
 
-    public virtual async Task<TGetDto> GetOneAsync(Guid id)
+    public virtual async Task<TGetDto> GetOneAsync(Guid id, Guid userId)
     {
         var item = await _repo.GetOneAsync(id);
         if (item == null)
             throw new ArgumentNullException(nameof(item));
         return _mapper.Map<TGetDto>(item);
+    }
+
+    public virtual async Task<TGetDto> CreateOneAsync(TCreateDto dto, Guid id)
+    {
+        throw new NotImplementedException();
     }
 
     public virtual async Task<IEnumerable<TGetDto>> GetAllAsync()

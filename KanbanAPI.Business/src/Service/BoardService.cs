@@ -15,6 +15,29 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
         _userRepo = userRepo;
     }
 
+    public override async Task<GetBoardDto> CreateOneAsync(CreateBoardDto dto, Guid id)
+    {
+        var board = _mapper.Map<Board>(dto);
+        var user = await _userRepo.GetOneAsync(id);
+        if (user == null)
+            throw new KeyNotFoundException("User not found");
+        board.Users.Add(user);
+        user.Boards.Add(board);
+        await _boardRepo.CreateOneAsync(board);
+        await _userRepo.UpdateOneAsync(user);
+        return _mapper.Map<GetBoardDto>(board);
+    }
+
+    public override async Task<GetBoardDto> GetOneAsync(Guid id, Guid userId)
+    {
+        var board = await _boardRepo.GetOneWithUsersAsync(id);
+        if (board == null)
+            throw new KeyNotFoundException("Board not found");
+        if (!board.Users.Any(u => u.Id == userId))
+            throw new UnauthorizedAccessException("User not authorized");
+        return _mapper.Map<GetBoardDto>(board);
+    }
+
     public async Task<GetBoardDto> AddMember(Guid boardId, MemberDto dto)
     {
         var board = await _boardRepo.GetOneAsync(boardId);

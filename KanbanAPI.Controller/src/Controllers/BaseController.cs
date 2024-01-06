@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 using KanbanAPI.Business;
 using KanbanAPI.Domain;
@@ -42,7 +43,8 @@ public class BaseController<T, TCreateDto, TGetDto, TUpdateDto> : ControllerBase
     {
         try
         {
-            var item = await _service.GetOneAsync(id);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var item = await _service.GetOneAsync(id, Guid.Parse(userId));
             return Ok(item);
         }
         // item not found exception later
@@ -78,7 +80,8 @@ public class BaseController<T, TCreateDto, TGetDto, TUpdateDto> : ControllerBase
     {
         try
         {
-            var item = await _service.GetOneAsync(id);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var item = await _service.GetOneAsync(id, Guid.Parse(userId));
             if (item == null)
             {
                 return NotFound();
@@ -101,7 +104,8 @@ public class BaseController<T, TCreateDto, TGetDto, TUpdateDto> : ControllerBase
     {
         try
         {
-            var item = await _service.GetOneAsync(id);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var item = await _service.GetOneAsync(id, Guid.Parse(userId));
             if (item == null)
             {
                 return NotFound();

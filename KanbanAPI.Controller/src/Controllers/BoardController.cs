@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 using KanbanAPI.Business;
 using KanbanAPI.Domain;
@@ -15,6 +16,23 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
     {
         _service = service;
     }
+
+    [Authorize]
+    [HttpPost]
+    public override async Task<ActionResult<GetBoardDto>> CreateOneAsync([FromBody] CreateBoardDto dto)
+    {
+        try
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var board = await _service.CreateOneAsync(dto, Guid.Parse(userId));
+            return Ok(board);
+        }
+        catch (KeyNotFoundException e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
 
     [HttpPut("{board-id:Guid}/members")]
     public async Task<ActionResult<GetBoardDto>> AddMember([FromRoute(Name = "board-id")] Guid boardId, [FromBody] MemberDto dto)
