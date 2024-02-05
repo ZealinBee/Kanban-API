@@ -2,13 +2,13 @@ namespace KanbanAPI.Business;
 
 public class CreateBoardDto
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = String.Empty;
 }
 
 public class GetBoardDto
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
+    public Guid Id { get; set; } = Guid.Empty;
+    public string Name { get; set; } = String.Empty;
 }
 
 public class UpdateBoardDto
@@ -19,5 +19,5 @@ public class UpdateBoardDto
 
 public class MemberDto
 {
-    public Guid UserId { get; set; }
+    public Guid UserId { get; set; } = Guid.Empty;
 }

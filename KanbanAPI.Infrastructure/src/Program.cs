@@ -27,6 +27,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IBoardService, BoardService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<ICustomAuthorizationService, CustomAuthorizationService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 

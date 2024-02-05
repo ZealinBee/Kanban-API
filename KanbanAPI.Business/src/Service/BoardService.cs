@@ -21,20 +21,12 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
         var user = await _userRepo.GetOneAsync(id);
         if (user == null)
             throw new KeyNotFoundException("User not found");
+
         board.Users.Add(user);
         user.Boards.Add(board);
+
         await _boardRepo.CreateOneAsync(board);
         await _userRepo.UpdateOneAsync(user);
-        return _mapper.Map<GetBoardDto>(board);
-    }
-
-    public override async Task<GetBoardDto> GetOneAsync(Guid id, Guid userId)
-    {
-        var board = await _boardRepo.GetOneWithUsersAsync(id);
-        if (board == null)
-            throw new KeyNotFoundException("Board not found");
-        if (!board.Users.Any(u => u.Id == userId))
-            throw new UnauthorizedAccessException("User not authorized");
         return _mapper.Map<GetBoardDto>(board);
     }
 
@@ -46,8 +38,10 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
         var user = await _userRepo.GetOneAsync(dto.UserId);
         if (user == null)
             throw new KeyNotFoundException("User not found");
+
         board.Users.Add(user);
         user.Boards.Add(board);
+
         await _boardRepo.UpdateOneAsync(board);
         await _userRepo.UpdateOneAsync(user);
         return _mapper.Map<GetBoardDto>(board);
@@ -58,7 +52,6 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
         var board = await _boardRepo.GetOneWithUsersAsync(boardId);
         if (board == null)
             throw new KeyNotFoundException("Board not found");
-
         var user = await _userRepo.GetOneWithBoardsAsync(dto.UserId);
         if (user == null)
             throw new KeyNotFoundException("User not found");
@@ -69,6 +62,14 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
         await _boardRepo.UpdateOneAsync(board);
         await _userRepo.UpdateOneAsync(user);
         return true;
+    }
+
+    public async Task<List<GetBoardDto>> GetBoardsForUser(Guid userId)
+    {
+        var user = await _userRepo.GetOneWithBoardsAsync(userId);
+        if (user == null)
+            throw new KeyNotFoundException("User not found");
+        return _mapper.Map<List<GetBoardDto>>(user.Boards);
     }
 
 

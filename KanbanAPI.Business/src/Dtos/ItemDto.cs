@@ -5,6 +5,7 @@ namespace KanbanAPI.Business;
 public class CreateItemDto
 {
     public string Name { get; set; } = String.Empty;
+    public Guid BoardId { get; set; } = Guid.Empty;
 }
 
 public class GetItemDto

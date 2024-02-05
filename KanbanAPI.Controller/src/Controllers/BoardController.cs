@@ -11,10 +11,12 @@ namespace KanbanAPI.Controller;
 
 public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto, UpdateBoardDto>
 {
-    private readonly IBoardService _service;
-    public BoardController(IBoardService service) : base(service)
+    private readonly IBoardService _boardService;
+    private readonly ICustomAuthorizationService _customAuthService;
+    public BoardController(IBoardService boardService, ICustomAuthorizationService customAuthService) : base(boardService)
     {
-        _service = service;
+        _boardService = boardService;
+        _customAuthService = customAuthService;
     }
 
     [Authorize]
@@ -33,13 +35,22 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
         }
     }
 
+    [Authorize]
+    [HttpGet("my-boards")]
+    public async Task<ActionResult<List<GetBoardDto>>> GetMyBoards()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        var boards = await _boardService.GetBoardsForUser(Guid.Parse(userId));
+        return Ok(boards);
+    }
 
     [HttpPut("{board-id:Guid}/members")]
     public async Task<ActionResult<GetBoardDto>> AddMember([FromRoute(Name = "board-id")] Guid boardId, [FromBody] MemberDto dto)
     {
         try
         {
-            var board = await _service.AddMember(boardId, dto);
+            await _customAuthService.IsUserAuthorizedForBoard(boardId, Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
+            var board = await _boardService.AddMember(boardId, dto);
             return Ok(board);
         }
         catch (KeyNotFoundException e)
@@ -53,7 +64,8 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
     {
         try
         {
-            var board = await _service.RemoveMember(boardId, dto);
+            await _customAuthService.IsUserAuthorizedForBoard(boardId, Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
+            var board = await _boardService.RemoveMember(boardId, dto);
             return NoContent();
         }
         catch (KeyNotFoundException e)
