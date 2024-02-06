@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\kanban-api\\KanbanAPI.Domain\\KanbanAPI.Domain.csproj": {}
+    "E:\\Projects\\Kanban-API\\KanbanAPI.Domain\\KanbanAPI.Domain.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\kanban-api\\KanbanAPI.Domain\\KanbanAPI.Domain.csproj": {
+    "E:\\Projects\\Kanban-API\\KanbanAPI.Domain\\KanbanAPI.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\kanban-api\\KanbanAPI.Domain\\KanbanAPI.Domain.csproj",
+        "projectUniqueName": "E:\\Projects\\Kanban-API\\KanbanAPI.Domain\\KanbanAPI.Domain.csproj",
         "projectName": "KanbanAPI.Domain",
-        "projectPath": "D:\\Projects\\kanban-api\\KanbanAPI.Domain\\KanbanAPI.Domain.csproj",
+        "projectPath": "E:\\Projects\\Kanban-API\\KanbanAPI.Domain\\KanbanAPI.Domain.csproj",
         "packagesPath": "C:\\Users\\thenu\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\kanban-api\\KanbanAPI.Domain\\obj\\",
+        "outputPath": "E:\\Projects\\Kanban-API\\KanbanAPI.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\thenu\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\thenu\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -55,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

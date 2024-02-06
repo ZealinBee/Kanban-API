@@ -25,10 +25,9 @@ public class ItemController : BaseController<Item, CreateItemDto, GetItemDto, Up
     {
         try
         {
-            await _authService.IsUserAuthorizedForBoard(dto.BoardId, Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            await _authService.IsUserAuthorizedForBoard(dto.BoardId, Guid.Parse(userId));
             return await _service.CreateOneAsync(dto, Guid.Parse(userId));
-
         }
         catch (UnauthorizedAccessException e)
         {

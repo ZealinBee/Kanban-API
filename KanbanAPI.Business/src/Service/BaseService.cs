@@ -41,12 +41,6 @@ public class BaseService<T, TCreateDto, TGetDto, TUpdateDto> : IBaseService<TCre
         throw new NotImplementedException();
     }
 
-    public virtual async Task<IEnumerable<TGetDto>> GetAllAsync()
-    {
-        var items = await _repo.GetAllAsync();
-        return _mapper.Map<IEnumerable<TGetDto>>(items);
-    }
-
     public virtual async Task<TGetDto> UpdateOneAsync(TUpdateDto dto, Guid id)
     {
         if (dto == null)

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "tk3VMV8AV5/V7dXrGOHwgLYXmvKDFjIg0JfSkHPbJtXyT6kfKsfGK7qExmlVFAv7dDPiJRUhLA3gBUszcS/vig==",
+  "dgSpecHash": "JDpFHUYh5M7wria9TWLvbGppiq54g9DRvzv0eePa02rTe7NqvZt0fMdBjZ180V8eWKTWPmH8Io8IYpEWKZwUAQ==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\kanban-api\\KanbanAPI.Infrastructure\\KanbanAPI.Infrastructure.csproj",
+  "projectFilePath": "E:\\Projects\\Kanban-API\\KanbanAPI.Infrastructure\\KanbanAPI.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\thenu\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\thenu\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

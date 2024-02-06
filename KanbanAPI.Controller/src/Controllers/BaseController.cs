@@ -55,23 +55,6 @@ public class BaseController<T, TCreateDto, TGetDto, TUpdateDto> : ControllerBase
     }
 
     [Authorize]
-    [HttpGet]
-    [ProducesResponseType(statusCode: 200)]
-    [ProducesResponseType(statusCode: 400)]
-    public virtual async Task<ActionResult<IEnumerable<TGetDto>>> GetAllAsync()
-    {
-        try
-        {
-            var items = await _service.GetAllAsync();
-            return Ok(items.ToList());
-        }
-        catch (Exception e)
-        {
-            return BadRequest(e.Message);
-        }
-    }
-
-    [Authorize]
     [HttpPut("{id:Guid}")]
     [ProducesResponseType(statusCode: 200)]
     [ProducesResponseType(statusCode: 400)]

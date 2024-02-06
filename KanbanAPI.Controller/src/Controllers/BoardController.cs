@@ -40,7 +40,7 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
     public async Task<ActionResult<List<GetBoardDto>>> GetMyBoards()
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        var boards = await _boardService.GetBoardsForUser(Guid.Parse(userId));
+        var boards = await _boardService.GetAllAsync(Guid.Parse(userId));
         return Ok(boards);
     }
 

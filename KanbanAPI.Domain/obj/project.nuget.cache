@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jCLouS+c8S5UL8unjHt8IGPHzdUFZqlhp45atPY3dIrjn4OTX2PO/DH4HDWBKiUKrwu2esxBl9eSjkWreaswrA==",
+  "dgSpecHash": "+iuImDE8SyidJE8XsEhbiNFwgvTdnBpMWd8CAgAfjvlSB12oA7of8uCep9/R4EnADTlUY/WPezYtd25OdcCSUw==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\kanban-api\\KanbanAPI.Domain\\KanbanAPI.Domain.csproj",
+  "projectFilePath": "E:\\Projects\\Kanban-API\\KanbanAPI.Domain\\KanbanAPI.Domain.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

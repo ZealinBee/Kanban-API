@@ -30,6 +30,15 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
         return _mapper.Map<GetBoardDto>(board);
     }
 
+    public async Task<List<GetBoardDto>> GetAllAsync(Guid userId)
+    {
+        var user = await _userRepo.GetOneWithBoardsAsync(userId);
+        if (user == null)
+            throw new KeyNotFoundException("User not found");
+        return _mapper.Map<List<GetBoardDto>>(user.Boards);
+    }
+
+
     public async Task<GetBoardDto> AddMember(Guid boardId, MemberDto dto)
     {
         var board = await _boardRepo.GetOneAsync(boardId);
@@ -64,13 +73,6 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
         return true;
     }
 
-    public async Task<List<GetBoardDto>> GetBoardsForUser(Guid userId)
-    {
-        var user = await _userRepo.GetOneWithBoardsAsync(userId);
-        if (user == null)
-            throw new KeyNotFoundException("User not found");
-        return _mapper.Map<List<GetBoardDto>>(user.Boards);
-    }
 
 
 
