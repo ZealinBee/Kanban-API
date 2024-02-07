@@ -11,12 +11,12 @@ namespace KanbanAPI.Controller;
 
 public class ItemController : BaseController<Item, CreateItemDto, GetItemDto, UpdateItemDto>
 {
-    private readonly IItemService _service;
-    private readonly ICustomAuthorizationService _authService;
-    public ItemController(IItemService service, ICustomAuthorizationService authService) : base(service)
+    private readonly IItemService _itemService;
+    private readonly ICustomAuthorizationService _customAuthService;
+    public ItemController(IItemService itemService, ICustomAuthorizationService customAuthService) : base(itemService)
     {
-        _service = service;
-        _authService = authService;
+        _itemService = itemService;
+        _customAuthService = customAuthService;
     }
 
     [Authorize]
@@ -26,12 +26,30 @@ public class ItemController : BaseController<Item, CreateItemDto, GetItemDto, Up
         try
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            await _authService.IsUserAuthorizedForBoard(dto.BoardId, Guid.Parse(userId));
-            return await _service.CreateOneAsync(dto, Guid.Parse(userId));
+            await _customAuthService.IsUserAuthorizedForBoard(dto.BoardId, Guid.Parse(userId));
+            return await _itemService.CreateOneAsync(dto, Guid.Parse(userId));
         }
         catch (UnauthorizedAccessException e)
         {
             return BadRequest(e.Message);
         }
     }
+
+    [Authorize]
+    [HttpPut("{id}")]
+    public override async Task<ActionResult<GetItemDto>> UpdateOneAsync([FromRoute] Guid id, [FromBody] UpdateItemDto dto)
+    {
+        try
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            await _customAuthService.IsUserAuthorizedForBoard(dto.BoardId, Guid.Parse(userId));
+            var updatedItem = await _itemService.UpdateOneAsync(dto, id);
+            return Ok(updatedItem);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
 }

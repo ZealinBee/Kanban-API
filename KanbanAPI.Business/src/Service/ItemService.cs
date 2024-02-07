@@ -19,6 +19,8 @@ public class ItemService : BaseService<Item, CreateItemDto, GetItemDto, UpdateIt
     public override async Task<GetItemDto> CreateOneAsync(CreateItemDto dto, Guid userId)
     {
         var board = await _boardRepo.GetOneWithItemsAsync(dto.BoardId);
+        if (board == null)
+            throw new KeyNotFoundException("Board not found");
         var item = _mapper.Map<Item>(dto);
         board.Items.Add(item);
         await _boardRepo.UpdateOneAsync(board);

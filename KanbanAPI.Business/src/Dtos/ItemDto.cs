@@ -24,6 +24,7 @@ public class UpdateItemDto
     public string Name { get; set; } = String.Empty;
     public string Description { get; set; } = String.Empty;
     public ItemStatus Status { get; set; } = ItemStatus.Todo;
+    public Guid BoardId { get; set; } = Guid.Empty;
 }
 
 public class AddUserDto
