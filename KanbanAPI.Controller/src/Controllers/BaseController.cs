@@ -43,8 +43,7 @@ public class BaseController<T, TCreateDto, TGetDto, TUpdateDto> : ControllerBase
     {
         try
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var item = await _service.GetOneAsync(id, Guid.Parse(userId));
+            var item = await _service.GetOneAsync(id);
             return Ok(item);
         }
         // item not found exception later
@@ -63,8 +62,7 @@ public class BaseController<T, TCreateDto, TGetDto, TUpdateDto> : ControllerBase
     {
         try
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var item = await _service.GetOneAsync(id, Guid.Parse(userId));
+            var item = await _service.GetOneAsync(id);
             if (item == null)
             {
                 return NotFound();
@@ -87,8 +85,7 @@ public class BaseController<T, TCreateDto, TGetDto, TUpdateDto> : ControllerBase
     {
         try
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var item = await _service.GetOneAsync(id, Guid.Parse(userId));
+            var item = await _service.GetOneAsync(id);
             if (item == null)
             {
                 return NotFound();

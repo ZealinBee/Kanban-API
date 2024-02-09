@@ -27,12 +27,12 @@ public class ItemService : BaseService<Item, CreateItemDto, GetItemDto, UpdateIt
         return _mapper.Map<GetItemDto>(item);
     }
 
-    public async Task<GetItemDto> AddUser(Guid itemId, MemberDto dto)
+    public async Task<GetItemDto> AddUser(Guid itemId, Guid userId)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<bool> RemoveUser(Guid itemId, MemberDto dto)
+    public async Task<bool> RemoveUser(Guid itemId, Guid userId)
     {
         throw new NotImplementedException();
     }

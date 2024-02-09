@@ -7,5 +7,5 @@ public interface IBaseService<TCreateDto, TGetDto, TUpdateDto>
     Task<TGetDto> CreateOneAsync(TCreateDto dto, Guid id);
     Task<TGetDto> UpdateOneAsync(TUpdateDto dto, Guid id);
     Task<bool> DeleteOneAsync(Guid id);
-    Task<TGetDto> GetOneAsync(Guid id, Guid userId);
+    Task<TGetDto> GetOneAsync(Guid id);
 }

@@ -28,7 +28,7 @@ public class BaseService<T, TCreateDto, TGetDto, TUpdateDto> : IBaseService<TCre
         return _mapper.Map<TGetDto>(await _repo.CreateOneAsync(newItem));
     }
 
-    public virtual async Task<TGetDto> GetOneAsync(Guid id, Guid userId)
+    public virtual async Task<TGetDto> GetOneAsync(Guid id)
     {
         var item = await _repo.GetOneAsync(id);
         if (item == null)

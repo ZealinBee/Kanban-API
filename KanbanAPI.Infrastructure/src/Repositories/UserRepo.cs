@@ -26,6 +26,7 @@ public class UserRepo : BaseRepo<User>, IUserRepo
     {
         return await _dbSet
                                .Include(u => u.Boards)
+                               .ThenInclude(b => b.Users)
                                .FirstOrDefaultAsync(u => u.Id == id);
     }
 
