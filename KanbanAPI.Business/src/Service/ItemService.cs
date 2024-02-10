@@ -49,7 +49,21 @@ public class ItemService : BaseService<Item, CreateItemDto, GetItemDto, UpdateIt
     }
     public async Task<bool> RemoveUser(Guid itemId, Guid userId)
     {
-        throw new NotImplementedException();
+        var item = await _itemRepo.GetOneAsync(itemId);
+        if (item == null)
+            throw new KeyNotFoundException("Item not found");
+        var user = await _userRepo.GetOneWithItemsAsync(userId);
+        if (user == null)
+            throw new KeyNotFoundException("User not found");
+        if (!item.Users.Any(u => u.Id == userId))
+            throw new InvalidOperationException("User not assigned to item");
+
+        item.Users.Remove(user);
+        user.Items.Remove(item);
+
+        await _itemRepo.UpdateOneAsync(item);
+        await _userRepo.UpdateOneAsync(user);
+        return true;
     }
 
     public async Task<bool> IsItemPartOfBoard(Guid itemId, Guid boardId)

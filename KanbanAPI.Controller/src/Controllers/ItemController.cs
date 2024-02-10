@@ -70,4 +70,22 @@ public class ItemController : BaseController<Item, CreateItemDto, GetItemDto, Up
         }
     }
 
+    [Authorize]
+    [HttpDelete("{item-id:Guid}/remove-user")]
+    public async Task<ActionResult<GetItemDto>> RemoveUser([FromRoute(Name = "item-id")] Guid itemId, [FromBody] AssignUserDto dto)
+    {
+        try
+        {
+            var actionUserId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            await _itemService.IsItemPartOfBoard(itemId, dto.BoardId);
+            await _customAuthService.IsUserAuthorizedForBoard(dto.BoardId, actionUserId);
+            var updatedItem = await _itemService.RemoveUser(itemId, dto.UserId);
+            return NoContent();
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
 }
