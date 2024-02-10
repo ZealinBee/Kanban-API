@@ -52,4 +52,22 @@ public class ItemController : BaseController<Item, CreateItemDto, GetItemDto, Up
         }
     }
 
+    [Authorize]
+    [HttpPost("{item-id:Guid}/assign-user")]
+    public async Task<ActionResult<GetItemDto>> AssignUser([FromRoute(Name = "item-id")] Guid itemId, [FromBody] AssignUserDto dto)
+    {
+        try
+        {
+            var actionUserId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            await _itemService.IsItemPartOfBoard(itemId, dto.BoardId);
+            await _customAuthService.IsUserAuthorizedForBoard(dto.BoardId, actionUserId);
+            var updatedItem = await _itemService.AssignUser(itemId, dto.UserId);
+            return Ok(updatedItem);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
 }

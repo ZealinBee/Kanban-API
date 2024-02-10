@@ -4,7 +4,7 @@ namespace KanbanAPI.Business;
 
 public interface IItemService : IBaseService<CreateItemDto, GetItemDto, UpdateItemDto>
 {
-    Task<GetItemDto> AddUser(Guid itemId, Guid userId);
+    Task<GetItemDto> AssignUser(Guid itemId, Guid userId);
     Task<bool> RemoveUser(Guid itemId, Guid userId);
     Task<bool> IsItemPartOfBoard(Guid itemId, Guid boardId);
 }

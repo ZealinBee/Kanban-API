@@ -16,7 +16,7 @@ public class GetItemDto
     public DateTime CreatedAt { get; init; }
     public ItemStatus Status { get; set; } = ItemStatus.Todo;
     public Guid BoardId { get; set; }
-    public List<User> Users { get; } = new();
+    public List<GetUserDto> Users { get; set; } = new();
 }
 
 public class UpdateItemDto
@@ -27,8 +27,9 @@ public class UpdateItemDto
     public Guid BoardId { get; set; } = Guid.Empty;
 }
 
-public class AddUserDto
-{
-    public Guid UserId { get; set; }
-}
 
+public class AssignUserDto
+{
+    public Guid UserId { get; set; } = Guid.Empty;
+    public Guid BoardId { get; set; } = Guid.Empty;
+}

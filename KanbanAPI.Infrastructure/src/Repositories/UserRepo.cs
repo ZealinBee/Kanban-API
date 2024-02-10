@@ -30,5 +30,11 @@ public class UserRepo : BaseRepo<User>, IUserRepo
                                .FirstOrDefaultAsync(u => u.Id == id);
     }
 
+    public async Task<User> GetOneWithItemsAsync(Guid id)
+    {
+        return await _dbSet
+                               .Include(u => u.Items)
+                               .FirstOrDefaultAsync(u => u.Id == id);
+    }
 
 }
