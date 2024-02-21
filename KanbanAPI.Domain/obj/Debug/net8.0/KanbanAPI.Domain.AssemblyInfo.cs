@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("KanbanAPI.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3134538d0f39f64a81bae70c40a0d8930a731355")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c6d1abf8c8a2d57beaeadbc8e1645ecbd9b9535e")]
 [assembly: System.Reflection.AssemblyProductAttribute("KanbanAPI.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("KanbanAPI.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
