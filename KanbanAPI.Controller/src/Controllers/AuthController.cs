@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 using KanbanAPI.Business;
 using KanbanAPI.Domain;
@@ -23,6 +25,22 @@ public class AuthController : ControllerBase
         try
         {
             return Ok(await _authService.VerifyCredentials(dto));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpPut("change-password")]
+    public async Task<ActionResult<bool>> ChangePassword([FromBody] UpdatePasswordDto dto)
+    {
+        try
+        {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            await _authService.ChangePassword(dto, userId);
+            return Ok(true);
         }
         catch (Exception e)
         {

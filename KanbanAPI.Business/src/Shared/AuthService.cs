@@ -55,4 +55,21 @@ public class AuthService : IAuthService
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
+
+    public async Task<bool> ChangePassword(UpdatePasswordDto dto, Guid userId)
+    {
+        var foundUser = await _userRepo.GetOneAsync(userId);
+        if (foundUser == null)
+            throw new Exception("User not found");
+        if (dto.NewPassword == dto.OldPassword)
+            throw new Exception("New password cannot be the same as the old password");
+        var isAuthenticated = PasswordService.VerifyPasswordHash(dto.OldPassword, foundUser.Password, foundUser.Salt);
+        if (!isAuthenticated)
+            throw new Exception("Old password is incorrect");
+        PasswordService.HashPassword(dto.NewPassword, out var hashedPassword, out var passwordSalt);
+        foundUser.Password = hashedPassword;
+        foundUser.Salt = passwordSalt;
+        await _userRepo.UpdateOneAsync(foundUser);
+        return true;
+    }
 }
