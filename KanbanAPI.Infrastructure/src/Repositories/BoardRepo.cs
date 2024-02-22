@@ -24,4 +24,11 @@ public class BoardRepo : BaseRepo<Board>, IBoardRepo
                                .Include(b => b.Items)
                                .FirstOrDefaultAsync(b => b.Id == id);
     }
+    public async Task<Board> GetOneWithUsersAndItemsAsync(Guid id)
+    {
+        return await _dbSet
+                               .Include(b => b.Users)
+                               .Include(b => b.Items)
+                               .FirstOrDefaultAsync(b => b.Id == id);
+    }
 }

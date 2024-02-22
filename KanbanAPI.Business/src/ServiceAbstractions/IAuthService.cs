@@ -9,4 +9,5 @@ namespace KanbanAPI.Business;
 public interface IAuthService
 {
     Task<string> VerifyCredentials(LoginUserDto dto);
+    Task<bool> ChangePassword(UpdatePasswordDto dto, Guid userId);
 }

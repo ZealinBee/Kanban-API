@@ -30,6 +30,14 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
         return _mapper.Map<GetBoardDto>(board);
     }
 
+    public override async Task<GetBoardDto> GetOneAsync(Guid boardId)
+    {
+        var board = await _boardRepo.GetOneWithUsersAndItemsAsync(boardId);
+        if (board == null)
+            throw new KeyNotFoundException("Board not found");
+        return _mapper.Map<GetBoardDto>(board);
+    }
+
     public async Task<List<GetBoardDto>> GetAllAsync(Guid userId)
     {
         var user = await _userRepo.GetOneWithBoardsAsync(userId);
@@ -38,13 +46,12 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
         return _mapper.Map<List<GetBoardDto>>(user.Boards);
     }
 
-
-    public async Task<GetBoardDto> AddMember(Guid boardId, MemberDto dto)
+    public async Task<GetBoardDto> AddMember(Guid boardId, Guid userId)
     {
         var board = await _boardRepo.GetOneAsync(boardId);
         if (board == null)
             throw new KeyNotFoundException("Board not found");
-        var user = await _userRepo.GetOneAsync(dto.UserId);
+        var user = await _userRepo.GetOneAsync(userId);
         if (user == null)
             throw new KeyNotFoundException("User not found");
 
@@ -56,12 +63,12 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
         return _mapper.Map<GetBoardDto>(board);
     }
 
-    public async Task<bool> RemoveMember(Guid boardId, MemberDto dto)
+    public async Task<bool> RemoveMember(Guid boardId, Guid userId)
     {
         var board = await _boardRepo.GetOneWithUsersAsync(boardId);
         if (board == null)
             throw new KeyNotFoundException("Board not found");
-        var user = await _userRepo.GetOneWithBoardsAsync(dto.UserId);
+        var user = await _userRepo.GetOneWithBoardsAsync(userId);
         if (user == null)
             throw new KeyNotFoundException("User not found");
 
@@ -72,8 +79,4 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
         await _userRepo.UpdateOneAsync(user);
         return true;
     }
-
-
-
-
 }

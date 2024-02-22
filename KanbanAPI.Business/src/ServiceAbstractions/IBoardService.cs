@@ -4,7 +4,7 @@ namespace KanbanAPI.Business;
 
 public interface IBoardService : IBaseService<CreateBoardDto, GetBoardDto, UpdateBoardDto>
 {
-    Task<GetBoardDto> AddMember(Guid id, MemberDto dto);
-    Task<bool> RemoveMember(Guid id, MemberDto dto);
+    Task<GetBoardDto> AddMember(Guid boardId, Guid userId);
+    Task<bool> RemoveMember(Guid boardId, Guid userId);
     Task<List<GetBoardDto>> GetAllAsync(Guid userId);
 }

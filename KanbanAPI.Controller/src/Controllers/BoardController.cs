@@ -26,7 +26,7 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
         try
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var board = await _service.CreateOneAsync(dto, Guid.Parse(userId));
+            var board = await _boardService.CreateOneAsync(dto, Guid.Parse(userId));
             return Ok(board);
         }
         catch (KeyNotFoundException e)
@@ -36,21 +36,14 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
     }
 
     [Authorize]
-    [HttpGet("my-boards")]
-    public async Task<ActionResult<List<GetBoardDto>>> GetMyBoards()
-    {
-        var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        var boards = await _boardService.GetAllAsync(Guid.Parse(userId));
-        return Ok(boards);
-    }
-
-    [HttpPut("{board-id:Guid}/members")]
-    public async Task<ActionResult<GetBoardDto>> AddMember([FromRoute(Name = "board-id")] Guid boardId, [FromBody] MemberDto dto)
+    [HttpGet("{board-id:Guid}")]
+    public override async Task<ActionResult<GetBoardDto>> GetOneAsync([FromRoute(Name = "board-id")] Guid boardId)
     {
         try
         {
-            await _customAuthService.IsUserAuthorizedForBoard(boardId, Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
-            var board = await _boardService.AddMember(boardId, dto);
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            await _customAuthService.IsUserAuthorizedForBoard(boardId, Guid.Parse(userId));
+            var board = await _boardService.GetOneAsync(boardId);
             return Ok(board);
         }
         catch (KeyNotFoundException e)
@@ -59,13 +52,41 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
         }
     }
 
-    [HttpDelete("{board-id:Guid}/members")]
-    public async Task<ActionResult<bool>> RemoveMember([FromRoute(Name = "board-id")] Guid boardId, [FromBody] MemberDto dto)
+    [Authorize]
+    [HttpGet("all-my-boards")]
+    public async Task<ActionResult<List<GetBoardDto>>> GetMyBoards()
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        var boards = await _boardService.GetAllAsync(Guid.Parse(userId));
+        return Ok(boards);
+    }
+
+    [Authorize]
+    [HttpPost("{board-id:Guid}/members")]
+    public async Task<ActionResult<GetBoardDto>> AddMember([FromRoute(Name = "board-id")] Guid boardId, [FromBody] Guid userId)
     {
         try
         {
-            await _customAuthService.IsUserAuthorizedForBoard(boardId, Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
-            var board = await _boardService.RemoveMember(boardId, dto);
+            var actionUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            await _customAuthService.IsUserAuthorizedForBoard(boardId, Guid.Parse(actionUserId));
+            var board = await _boardService.AddMember(boardId, userId);
+            return Ok(board);
+        }
+        catch (KeyNotFoundException e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpDelete("{board-id:Guid}/members")]
+    public async Task<ActionResult<bool>> RemoveMember([FromRoute(Name = "board-id")] Guid boardId, [FromBody] Guid userId)
+    {
+        try
+        {
+            var actionUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            await _customAuthService.IsUserAuthorizedForBoard(boardId, Guid.Parse(actionUserId));
+            var board = await _boardService.RemoveMember(boardId, userId);
             return NoContent();
         }
         catch (KeyNotFoundException e)
