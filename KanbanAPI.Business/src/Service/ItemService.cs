@@ -75,4 +75,13 @@ public class ItemService : BaseService<Item, CreateItemDto, GetItemDto, UpdateIt
             throw new KeyNotFoundException("Item not part of the board");
         return true;
     }
+
+    public async Task<bool> IsItemStatusValid(ItemStatus status)
+    {
+        if (status != ItemStatus.Todo && status != ItemStatus.InProgress && status != ItemStatus.Done)
+        {
+            throw new InvalidOperationException("Invalid item status");
+        }
+        return true;
+    }
 }

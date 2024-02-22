@@ -29,7 +29,7 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
             var board = await _boardService.CreateOneAsync(dto, Guid.Parse(userId));
             return Ok(board);
         }
-        catch (KeyNotFoundException e)
+        catch (Exception e)
         {
             return BadRequest(e.Message);
         }
@@ -46,7 +46,7 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
             var board = await _boardService.GetOneAsync(boardId);
             return Ok(board);
         }
-        catch (KeyNotFoundException e)
+        catch (Exception e)
         {
             return BadRequest(e.Message);
         }
@@ -72,7 +72,7 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
             var board = await _boardService.AddMember(boardId, userId);
             return Ok(board);
         }
-        catch (KeyNotFoundException e)
+        catch (Exception e)
         {
             return BadRequest(e.Message);
         }
@@ -89,7 +89,27 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
             var board = await _boardService.RemoveMember(boardId, userId);
             return NoContent();
         }
-        catch (KeyNotFoundException e)
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpDelete("{board-id:Guid}")]
+    [ProducesResponseType(statusCode: 200)]
+    [ProducesResponseType(statusCode: 400)]
+    [ProducesResponseType(statusCode: 404)]
+    public override async Task<ActionResult> DeleteOneAsync([FromRoute(Name = "board-id")] Guid boardId)
+    {
+        try
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            await _customAuthService.IsUserAuthorizedForBoard(boardId, Guid.Parse(userId));
+            await _boardService.DeleteOneAsync(boardId);
+            return NoContent();
+        }
+        catch (Exception e)
         {
             return BadRequest(e.Message);
         }

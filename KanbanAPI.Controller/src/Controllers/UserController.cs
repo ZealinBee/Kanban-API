@@ -55,8 +55,25 @@ public class UserController : BaseController<User, CreateUserDto, GetUserDto, Up
         try
         {
             var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            await _userService.DoesEmailExistAsync(dto.Email);
             var item = await _userService.UpdateOneAsync(dto, userId);
             return Ok(item);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpDelete("my-profile")]
+    public async Task<ActionResult> DeleteOwnProfileAsync()
+    {
+        try
+        {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            await _userService.DeleteOneAsync(userId);
+            return Ok();
         }
         catch (Exception e)
         {

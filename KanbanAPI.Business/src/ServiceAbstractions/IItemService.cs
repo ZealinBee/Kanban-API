@@ -7,4 +7,5 @@ public interface IItemService : IBaseService<CreateItemDto, GetItemDto, UpdateIt
     Task<GetItemDto> AssignUser(Guid itemId, Guid userId);
     Task<bool> RemoveUser(Guid itemId, Guid userId);
     Task<bool> IsItemPartOfBoard(Guid itemId, Guid boardId);
+    Task<bool> IsItemStatusValid(ItemStatus status);
 }

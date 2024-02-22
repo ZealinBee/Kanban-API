@@ -42,6 +42,7 @@ public class ItemController : BaseController<Item, CreateItemDto, GetItemDto, Up
         try
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            await _itemService.IsItemStatusValid(dto.Status);
             await _customAuthService.IsUserAuthorizedForBoard(dto.BoardId, Guid.Parse(userId));
             var updatedItem = await _itemService.UpdateOneAsync(dto, id);
             return Ok(updatedItem);
@@ -87,5 +88,7 @@ public class ItemController : BaseController<Item, CreateItemDto, GetItemDto, Up
             return BadRequest(exception.Message);
         }
     }
+
+
 
 }

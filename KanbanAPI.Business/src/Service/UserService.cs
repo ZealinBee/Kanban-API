@@ -26,4 +26,12 @@ public class UserService : BaseService<User, CreateUserDto, GetUserDto, UpdateUs
         var createdUser = await _userRepo.CreateOneAsync(user);
         return _mapper.Map<GetUserDto>(createdUser);
     }
+
+    public async Task DoesEmailExistAsync(string email)
+    {
+        if (await _userRepo.GetOneByEmailAsync(email) != null)
+        {
+            throw new Exception("Email already exists");
+        }
+    }
 }
