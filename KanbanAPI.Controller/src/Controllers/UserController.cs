@@ -16,13 +16,6 @@ public class UserController : BaseController<User, CreateUserDto, GetUserDto, Up
         _userService = userService;
     }
 
-    [Authorize]
-    [HttpGet("{id:Guid}")]
-    public override async Task<ActionResult<GetUserDto>> GetOneAsync([FromRoute] Guid id)
-    {
-        // you cannot get other users, there is no admin for this app
-        return new EmptyResult();
-    }
 
     [Authorize]
     [HttpGet("my-profile")]
@@ -40,13 +33,7 @@ public class UserController : BaseController<User, CreateUserDto, GetUserDto, Up
         }
     }
 
-    [Authorize]
-    [HttpPut("{id:Guid}")]
-    public override async Task<ActionResult<GetUserDto>> UpdateOneAsync([FromRoute] Guid id, [FromBody] UpdateUserDto dto)
-    {
-        // you cannot update other users
-        return new EmptyResult();
-    }
+
 
     [Authorize]
     [HttpPut("my-profile")]
@@ -80,4 +67,51 @@ public class UserController : BaseController<User, CreateUserDto, GetUserDto, Up
             return BadRequest(e.Message);
         }
     }
+
+    [Authorize]
+    [HttpGet("{id:Guid}")]
+    public override async Task<ActionResult<GetUserDto>> GetOneAsync([FromRoute] Guid id)
+    {
+        // you cannot get other users, there is no admin for this app
+        try
+        {
+            throw (new UnauthorizedAccessException());
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpPut("{id:Guid}")]
+    public override async Task<ActionResult<GetUserDto>> UpdateOneAsync([FromRoute] Guid id, [FromBody] UpdateUserDto dto)
+    {
+        // you cannot update other users
+        try
+        {
+            throw (new UnauthorizedAccessException());
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+
+    [Authorize]
+    [HttpDelete("{id:Guid}")]
+    public override async Task<ActionResult> DeleteOneAsync([FromRoute] Guid id)
+    {
+        // you cannot delete other users
+        try
+        {
+            throw (new UnauthorizedAccessException());
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
 }

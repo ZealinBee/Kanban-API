@@ -96,10 +96,24 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
     }
 
     [Authorize]
+    [HttpPut("{board-id:Guid}")]
+    public override async Task<ActionResult<GetBoardDto>> UpdateOneAsync([FromRoute(Name = "board-id")] Guid boardId, [FromBody] UpdateBoardDto dto)
+    {
+        try
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            await _customAuthService.IsUserAuthorizedForBoard(boardId, Guid.Parse(userId));
+            var board = await _boardService.UpdateOneAsync(dto, boardId);
+            return Ok(board);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [Authorize]
     [HttpDelete("{board-id:Guid}")]
-    [ProducesResponseType(statusCode: 200)]
-    [ProducesResponseType(statusCode: 400)]
-    [ProducesResponseType(statusCode: 404)]
     public override async Task<ActionResult> DeleteOneAsync([FromRoute(Name = "board-id")] Guid boardId)
     {
         try

@@ -20,6 +20,23 @@ public class ItemController : BaseController<Item, CreateItemDto, GetItemDto, Up
     }
 
     [Authorize]
+    [HttpGet("{id:Guid}")]
+    public override async Task<ActionResult<GetItemDto>> GetOneAsync([FromRoute] Guid id)
+    {
+        try
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var item = await _itemService.GetOneAsync(id);
+            await _customAuthService.IsUserAuthorizedForBoard(item.BoardId, Guid.Parse(userId));
+            return Ok(item);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
+    [Authorize]
     [HttpPost]
     public override async Task<ActionResult<GetItemDto>> CreateOneAsync([FromBody] CreateItemDto dto)
     {
@@ -36,7 +53,7 @@ public class ItemController : BaseController<Item, CreateItemDto, GetItemDto, Up
     }
 
     [Authorize]
-    [HttpPut("{id}")]
+    [HttpPut("{id:Guid}")]
     public override async Task<ActionResult<GetItemDto>> UpdateOneAsync([FromRoute] Guid id, [FromBody] UpdateItemDto dto)
     {
         try
@@ -46,6 +63,24 @@ public class ItemController : BaseController<Item, CreateItemDto, GetItemDto, Up
             await _customAuthService.IsUserAuthorizedForBoard(dto.BoardId, Guid.Parse(userId));
             var updatedItem = await _itemService.UpdateOneAsync(dto, id);
             return Ok(updatedItem);
+        }
+        catch (Exception exception)
+        {
+            return BadRequest(exception.Message);
+        }
+    }
+
+    [Authorize]
+    [HttpDelete("{id:Guid}")]
+    public override async Task<ActionResult> DeleteOneAsync([FromRoute] Guid id)
+    {
+        try
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var item = await _itemService.GetOneAsync(id);
+            await _customAuthService.IsUserAuthorizedForBoard(item.BoardId, Guid.Parse(userId));
+            await _itemService.DeleteOneAsync(id);
+            return NoContent();
         }
         catch (Exception exception)
         {
