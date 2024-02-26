@@ -20,7 +20,7 @@ public class AuthService : IAuthService
         _configuration = configuration;
     }
 
-    public async Task<string> VerifyCredentials(LoginUserDto dto)
+    public async Task<RefreshTokenDto> VerifyCredentials(LoginUserDto dto)
     {
         var foundUser = await _userRepo.GetOneByEmailAsync(dto.Email);
         if (foundUser == null)
@@ -28,11 +28,23 @@ public class AuthService : IAuthService
         var isAuthenticated = PasswordService.VerifyPasswordHash(dto.Password, foundUser.Password, foundUser.Salt);
         if (!isAuthenticated)
             throw new Exception("Password is incorrect");
-        return GenerateToken(foundUser);
+        if (foundUser.RefreshToken is null || foundUser.RefreshTokenExpiry < DateTime.UtcNow)
+        {
+            foundUser.RefreshToken = GenerateRefreshToken();
+            foundUser.RefreshTokenExpiry = DateTime.UtcNow.AddMonths(6);
+            await _userRepo.UpdateOneAsync(foundUser);
+        }
+        var accessToken = await GenerateToken(foundUser.Id);
+        return new RefreshTokenDto
+        {
+            AccessToken = accessToken,
+            RefreshToken = foundUser.RefreshToken
+        };
     }
 
-    public string GenerateToken(User user)
+    public async Task<string> GenerateToken(Guid userId)
     {
+        var user = await _userRepo.GetOneAsync(userId);
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -46,14 +58,15 @@ public class AuthService : IAuthService
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddDays(1),
+            Expires = DateTime.Now.AddHours(1),
             SigningCredentials = creds,
             Issuer = issuer,
             Audience = audience,
         };
         var tokenHandler = new JwtSecurityTokenHandler();
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+        var accessToken = tokenHandler.CreateToken(tokenDescriptor);
+
+        return tokenHandler.WriteToken(accessToken);
     }
 
     public async Task<bool> ChangePassword(UpdatePasswordDto dto, Guid userId)
@@ -71,5 +84,30 @@ public class AuthService : IAuthService
         foundUser.Salt = passwordSalt;
         await _userRepo.UpdateOneAsync(foundUser);
         return true;
+    }
+
+    private static string GenerateRefreshToken()
+    {
+        var randomNumber = new byte[64];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
+    }
+
+    public ClaimsPrincipal GetPrincipalFromExpiredToken(string? token)
+    {
+        if (token == null)
+            throw new Exception("Token is null");
+        var validation = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = false,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = _configuration["Jwt:Issuer"],
+            ValidAudience = _configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]))
+        };
+        return new JwtSecurityTokenHandler().ValidateToken(token, validation, out _);
     }
 }

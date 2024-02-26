@@ -20,7 +20,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<string>> Login([FromBody] LoginUserDto dto)
+    public async Task<ActionResult<RefreshTokenDto>> Login([FromBody] LoginUserDto dto)
     {
         try
         {
@@ -47,5 +47,27 @@ public class AuthController : ControllerBase
             return BadRequest(e.Message);
         }
     }
+
+    [Authorize]
+    [HttpPost("refresh")]
+    public async Task<ActionResult<string>> Refresh([FromBody] RefreshTokenDto dto)
+    {
+        try
+        {
+            var principal = _authService.GetPrincipalFromExpiredToken(dto.AccessToken);
+            Console.WriteLine("principal" + principal);
+            Console.WriteLine("principal identity" + principal.Identity);
+            Console.WriteLine("principal identity name" + principal.Identity.Name);
+            if (principal?.Identity.Name is null)
+                return Unauthorized();
+            var userId = Guid.Parse(principal.FindFirst(ClaimTypes.NameIdentifier).Value);
+            return Ok(await _authService.GenerateToken(userId));
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
 
 }
