@@ -13,4 +13,5 @@ public interface IAuthService
     Task<bool> ChangePassword(UpdatePasswordDto dto, Guid userId);
     ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
     Task<string> GenerateToken(Guid userId);
+    Task<bool> RevokeRefreshToken(Guid userId);
 }

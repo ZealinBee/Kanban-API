@@ -110,4 +110,15 @@ public class AuthService : IAuthService
         };
         return new JwtSecurityTokenHandler().ValidateToken(token, validation, out _);
     }
+
+    public async Task<bool> RevokeRefreshToken(Guid userId)
+    {
+        var foundUser = await _userRepo.GetOneAsync(userId);
+        if (foundUser == null)
+            throw new Exception("User not found");
+        foundUser.RefreshToken = null;
+        foundUser.RefreshTokenExpiry = DateTime.UtcNow;
+        await _userRepo.UpdateOneAsync(foundUser);
+        return true;
+    }
 }

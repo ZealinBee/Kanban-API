@@ -69,5 +69,21 @@ public class AuthController : ControllerBase
         }
     }
 
+    [Authorize]
+    [HttpDelete("revoke")]
+    public async Task<ActionResult<bool>> Revoke()
+    {
+        try
+        {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            await _authService.RevokeRefreshToken(userId);
+            return Ok(true);
+        }
+        catch (Exception e)
+        {
+            return BadRequest(e.Message);
+        }
+    }
+
 
 }
