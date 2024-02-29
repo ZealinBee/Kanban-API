@@ -6,5 +6,5 @@ public interface IBoardService : IBaseService<CreateBoardDto, GetBoardDto, Updat
 {
     Task<GetBoardDto> AddMember(Guid boardId, Guid userId);
     Task<bool> RemoveMember(Guid boardId, Guid userId);
-    Task<List<GetBoardDto>> GetAllAsync(Guid userId);
+    Task<List<GetBoardDto>> GetAllAsync(QueryOptions options, Guid userId);
 }

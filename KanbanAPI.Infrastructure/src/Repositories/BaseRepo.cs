@@ -29,9 +29,10 @@ public class BaseRepo<T> : IBaseRepo<T> where T : class
         return entity;
     }
 
-    public virtual async Task<IEnumerable<T>> GetAllAsync()
+    public virtual async Task<IEnumerable<T>> GetAllAsync(QueryOptions options)
     {
-        return await _dbSet.ToListAsync();
+        var entities = await _dbSet.Skip(options.Offset).Take(options.Limit).ToListAsync();
+        return entities;
     }
 
     public virtual async Task<T> UpdateOneAsync(T entity)

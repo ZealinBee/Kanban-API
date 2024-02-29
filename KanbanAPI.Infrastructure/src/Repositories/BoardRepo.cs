@@ -31,4 +31,11 @@ public class BoardRepo : BaseRepo<Board>, IBoardRepo
                                .Include(b => b.Items)
                                .FirstOrDefaultAsync(b => b.Id == id);
     }
+
+    public async Task<IEnumerable<Board>> GetAllWithPagination(List<Board> boards, QueryOptions options)
+    {
+        return boards.Skip(options.Offset).Take(options.Limit);
+    }
+
+
 }

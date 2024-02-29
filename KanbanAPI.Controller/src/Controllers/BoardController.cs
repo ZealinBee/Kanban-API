@@ -54,10 +54,10 @@ public class BoardController : BaseController<Board, CreateBoardDto, GetBoardDto
 
     [Authorize]
     [HttpGet("all-my-boards")]
-    public async Task<ActionResult<List<GetBoardDto>>> GetMyBoards()
+    public async Task<ActionResult<List<GetBoardDto>>> GetMyBoards([FromQuery] QueryOptions options)
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        var boards = await _boardService.GetAllAsync(Guid.Parse(userId));
+        var boards = await _boardService.GetAllAsync(options, Guid.Parse(userId));
         return Ok(boards);
     }
 

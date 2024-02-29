@@ -38,12 +38,13 @@ public class BoardService : BaseService<Board, CreateBoardDto, GetBoardDto, Upda
         return _mapper.Map<GetBoardDto>(board);
     }
 
-    public async Task<List<GetBoardDto>> GetAllAsync(Guid userId)
+    public async Task<List<GetBoardDto>> GetAllAsync(QueryOptions options, Guid userId)
     {
         var user = await _userRepo.GetOneWithBoardsAsync(userId);
         if (user == null)
             throw new KeyNotFoundException("User not found");
-        return _mapper.Map<List<GetBoardDto>>(user.Boards);
+        var boards = await _boardRepo.GetAllWithPagination(user.Boards, options);
+        return _mapper.Map<List<GetBoardDto>>(boards);
     }
 
     public async Task<GetBoardDto> AddMember(Guid boardId, Guid userId)
